@@ -24,7 +24,7 @@ class HttpClientInMemoryBackendService extends BrowserClient {
     );
   }
 
-  Future<Response> get(dynamic url, {Map<String, String> headers}) async
+  Future<Response> get(dynamic url, {Map<String, String> headers})
     => _handleRequest(_createRequest('GET',url,headers));
 
   Future<Response> post(dynamic url, {Map<String, String> headers,
@@ -54,7 +54,7 @@ class HttpClientInMemoryBackendService extends BrowserClient {
     return request;
   }
 
-  Response _handleRequest(Request req) {
+  Future<Response> _handleRequest(Request req) async {
     final data = _parseUrl(req.url.toString());
 
     final reqInfo = new RequestInfo(
@@ -83,7 +83,8 @@ class HttpClientInMemoryBackendService extends BrowserClient {
         break;
     }
 
-    return response;
+    final duration = new Duration(milliseconds: _config.delay);
+    return await new Future.delayed(duration,() => response);
   }
 
   Response _get(RequestInfo req){
