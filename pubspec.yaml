@@ -1,9 +1,10 @@
 name: http_in_memory_web_api
-description: A starting point for Dart libraries or applications.
+description: HTTTP in memory web api
 version: 0.0.1
 author: Adao Junior <itsjunnior@gmail.com>
+homepage: https://github.com/adaojunior/http_in_memory_web_api
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '>=1.8.0 <2.0.0'
 dependencies:
   http: '^0.11.3+3'
   browser: '^0.10.0+2'
