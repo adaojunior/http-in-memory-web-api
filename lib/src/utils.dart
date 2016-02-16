@@ -8,11 +8,10 @@ import 'package:http/http.dart' show Request;
 /// It must be safe to call again and should return new arrays with new objects.
 /// This condition allows InMemoryBackendService to morph the arrays and objects
 /// without touching the original source data.
-typedef Map<String,dynamic> CreateDb();
+typedef Map<String, dynamic> CreateDb();
 
 /// Interface for InMemoryBackend configuration options
 abstract class InMemoryBackendConfigArgs {
-
   /// delay (in ms) to simulate latency
   num get delay;
 
@@ -28,7 +27,6 @@ abstract class InMemoryBackendConfigArgs {
 
 /// InMemoryBackendService configuration options
 class InMemoryBackendConfig implements InMemoryBackendConfigArgs {
-
   /// delay (in ms) to simulate latency
   num delay = 500;
 
@@ -41,7 +39,8 @@ class InMemoryBackendConfig implements InMemoryBackendConfigArgs {
   /// root path before any API call
   String rootPath;
 
-  InMemoryBackendConfig({num delay,bool delete404,String host,String rootPath}){
+  InMemoryBackendConfig(
+      {num delay, bool delete404, String host, String rootPath}) {
     this.delay = delay ?? this.delay;
     this.delete404 = delete404 ?? this.delete404;
     this.host = host ?? this.host;
@@ -49,11 +48,10 @@ class InMemoryBackendConfig implements InMemoryBackendConfigArgs {
   }
 }
 
-
 class Location {
   AnchorElement _el;
 
-  Location(href){
+  Location(href) {
     _el = document.createElement('a');
     _el.href = href;
   }
@@ -70,13 +68,15 @@ class ParsedURL {
   final String collectionName;
   final String id;
   final String resourceUrl;
-  ParsedURL(this.base,this.collectionName,this.id,this.resourceUrl);
+  ParsedURL(this.base, this.collectionName, this.id, this.resourceUrl);
 }
 
 class Collection {
   String name;
   List data;
-  Collection(this.name,this.data);
+  Collection(this.name, this.data);
+
+  String toString() => name;
 }
 
 class RequestInfo {
@@ -87,7 +87,8 @@ class RequestInfo {
   final dynamic id;
   final String resourceUrl;
 
-  RequestInfo(this.req,this.base,this.collection,this.headers,this.id,this.resourceUrl);
+  RequestInfo(this.req, this.base, this.collection, this.headers, this.id,
+      this.resourceUrl);
 
   bool get hasId => id != null;
 }

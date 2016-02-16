@@ -37,7 +37,7 @@ class HttpClientInMemoryBackendService extends BrowserClient {
       _handleRequest(_createRequest('PUT', url, headers, body, encoding));
 
   Future<Response> delete(dynamic url, {Map<String, String> headers}) =>
-      _handleRequest(_createRequest('PUT', url, headers));
+      _handleRequest(_createRequest('DELETE', url, headers));
 
   Request _createRequest(String method, url, Map<String, String> headers,
       [body, Encoding encoding]) {
@@ -98,7 +98,7 @@ class HttpClientInMemoryBackendService extends BrowserClient {
         req.hasId ? _findById(req.collection, req.id) : req.collection.data;
     if (data == null) {
       return _createErrorResponse(STATUS['NOT_FOUND'],
-          '"${req.collection.name}" with id="${req.id}" not found');
+          '"${req.collection}" with id="${req.id}" not found');
     }
     final body = JSON.encode({'data': data});
     return new Response(body, STATUS['OK'], headers: req.headers);
@@ -129,11 +129,11 @@ class HttpClientInMemoryBackendService extends BrowserClient {
     Map item = JSON.decode(reqInfo.req.body);
     if (reqInfo.id == null) {
       return _createErrorResponse(
-          STATUS['NOT_FOUND'], 'Missing "${reqInfo.collection.name}" id');
+          STATUS['NOT_FOUND'], 'Missing "${reqInfo.collection}" id');
     }
     if (reqInfo.id != item['id']) {
       return _createErrorResponse(STATUS['BAD_REQUEST'],
-          '"${reqInfo.collection.name}" id does not match item.id');
+          '"${reqInfo.collection}" id does not match item.id');
     }
 
     int index = _indexOf(reqInfo.collection, item['id']);
@@ -148,7 +148,21 @@ class HttpClientInMemoryBackendService extends BrowserClient {
   }
 
   Response _delete(RequestInfo reqInfo) {
-    throw "NOT IMPLEMENTED YET";
+    if (reqInfo.id == null) {
+      return _createErrorResponse(
+          STATUS['NOT_FOUND'], 'Missing "${reqInfo.collection}" id');
+    }
+
+    int index = _indexOf(reqInfo.collection, reqInfo.id);
+    bool exists = index > -1;
+    if (exists) {
+      reqInfo.collection.data.removeAt(index);
+    }
+
+    int status = (exists || !_config.delete404)
+        ? STATUS['NO_CONTENT']
+        : STATUS['NOT_FOUND'];
+    return new Response('', status, headers: reqInfo.headers);
   }
 
   int _genId(Collection collection) {

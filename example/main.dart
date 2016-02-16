@@ -9,6 +9,8 @@ Future main() async {
   await _get();
   await _put();
   await _get();
+  await _delete();
+  await _get();
 }
 
 Future _get() async {
@@ -23,8 +25,17 @@ Future _get() async {
 Future _put() async {
   final url = 'app/heroes/7';
   print('[PUT] /$url');
-  final body = JSON.encode({'id':7,'name': 'Windstorm: the great'});
-  var response = await http.put(url,body: body);
+  final body = JSON.encode({'id': 7, 'name': 'Windstorm: the great'});
+  var response = await http.put(url, body: body);
+  print(response.statusCode);
+  print(response.headers);
+  print(response.body);
+}
+
+Future _delete() async {
+  final url = 'app/heroes/4';
+  print('[DELETE] /$url');
+  var response = await http.delete(url);
   print(response.statusCode);
   print(response.headers);
   print(response.body);
