@@ -2,6 +2,7 @@
 
 An in-memory web api for demos and tests.
 
+Inspired by [angular2-in-memory-web-api](https://github.com/wardbell/a2-in-memory-web-api)
 ## Usage
 
 A simple usage example:
