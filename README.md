@@ -1,6 +1,6 @@
-# http_in_memory_web_api
+# http-in-memory-web-api
 
-A library for Dart developers. It is awesome.
+An in-memory web api for demos and tests.
 
 ## Usage
 
@@ -31,4 +31,4 @@ CreateDb data = () => {
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
+[tracker]: https://github.com/adaojunior/http-in-memory-web-api/issues
