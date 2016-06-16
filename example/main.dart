@@ -7,6 +7,7 @@ final HttpClientInMemoryBackendService http =
 
 Future main() async {
   await _get();
+  await _post();
   await _put();
   await _get();
   await _delete();
@@ -17,6 +18,16 @@ Future _get() async {
   final url = 'app/heroes';
   print('[GET] /$url');
   var response = await http.get(url);
+  print(response.statusCode);
+  print(response.headers);
+  print(response.body);
+}
+
+Future _post() async {
+  final url = 'app/heroes';
+  print('[POST] /$url');
+  final body = JSON.encode({'id': 5, 'name': 'Windstorm: the great'});
+  var response = await http.post(url, body: body);
   print(response.statusCode);
   print(response.headers);
   print(response.body);
