@@ -121,8 +121,8 @@ class HttpClientInMemoryBackendService extends BrowserClient {
 
     reqInfo.collection.data.add(item);
     reqInfo.headers['Location'] = '${reqInfo.resourceUrl}/${item['id']}';
-    return new Response(JSON.encode(item), STATUS['CREATED'],
-        headers: reqInfo.headers);
+    final body = JSON.encode({'data': item});
+    return new Response(body, STATUS['CREATED'], headers: reqInfo.headers);
   }
 
   Response _put(RequestInfo reqInfo) {
@@ -143,8 +143,8 @@ class HttpClientInMemoryBackendService extends BrowserClient {
     }
 
     reqInfo.collection.data.add(item);
-    return new Response(JSON.encode(item), STATUS['CREATED'],
-        headers: reqInfo.headers);
+    final body = JSON.encode({'data': item});
+    return new Response(body, STATUS['CREATED'], headers: reqInfo.headers);
   }
 
   Response _delete(RequestInfo reqInfo) {
