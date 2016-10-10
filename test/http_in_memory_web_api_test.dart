@@ -24,7 +24,7 @@ void main() {
 
     test('get All', () async {
       final response = await http.get('app/heroes.json');
-      expect(response.body,JSON.encode(heroes));
+      expect(response.body,JSON.encode({'data': heroes}));
       expect(response.statusCode,200);
       expect(response.headers['Content-Type'],'application/json');
     });
