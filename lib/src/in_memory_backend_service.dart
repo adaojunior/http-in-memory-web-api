@@ -19,8 +19,8 @@ class HttpClientInMemoryBackendService extends BrowserClient {
     _config = new InMemoryBackendConfig(
         delay: config?.delay,
         delete404: config?.delete404,
-        host: location.host,
-        rootPath: location.pathname);
+        host: config?.host ?? location.host,
+        rootPath: config?.rootPath ?? location.pathname);
   }
 
   Future<Response> get(dynamic url, {Map<String, String> headers}) =>
